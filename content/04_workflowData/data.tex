@@ -1,0 +1,101 @@
+\section{Daten}
+
+Aufgrund der Aufgabenstellung wird zwischen Textdaten zum Training des Themenmodells und Textdaten zur Entdeckung von Themen unterschieden. Diese müssen nicht notwendigerweise aus unterschiedlichen Korpora stammen, können es jedoch. So werden für die Experimente mit dpa-Daten diese sowohl zum Training des Themenmodelles als auch zur Entdeckung von Themen über die Zeit benutzt. 
+
+Für die zeitliche Betrachtung muss es möglich sein, die einzelnen Dokumente des Korpus zeitlich anzuordnen. Das heißt, jedes Dokument erhält einen Zeitstempel, anhand dessen es zeitlich einsortiert werden kann. Die Funktion $\doctime(\doc)$ liefert den Zeitstempel eines Dokumentes $\doc$. Für ein Korpus $\corpus=(\doc_1,\doc_2,\ldots,\doc_m)$, das für die Entdeckung von zeitlichen Themenveränderungen genutzt wird, muss  $\doctime(\doc_1) \leq \doctime(\doc_2) \leq \ldots \leq \doctime(\doc_m)$ gelten. Die Dokumente können also zeitlich sortiert werden. Ein Korpus wird nicht mehr als ungeordnete Sammlung von Dokumenten betrachtet, sondern als Liste von zeitlich sortierten Dokumenten. 
+
+Es wurden zwei Textkollektionen zum Training des Themenmodells ausgewählt, die diese Eigenschaften aufweisen; erstens die dpa-Textkollektion und zweitens reale Chatdaten und Hintergrundtexte aus dem SCY-Projekt. Die Texte  zum Training der Themenmodelle müssen dabei nicht die Eigenschaft der zeitlichen Anordnung erfüllen.
+
+Die dpa-Texte wurden ausgewählt, um zwei möglichst gegensätzliche Korpora zur Verfügung zu haben. Die dpa-Texte enthalten wesentlich mehr Terme und Dokumente zum Training als auch zur Bestimmung von Verläufen, als die SCY-Texte. Die SCY-Texte enthalten sehr wenige Dokumente zum Training und zur Bestimmung der Verläufe. So wurde der Ansatz dieser Diplomarbeit mit zwei sehr unterschiedlichen Kollektionen getestet; Zum einen mit einem großen Korpus zum Training der Modelle und dem Bestimmen der Themenverläufe und einem sehr kleinen Korpus mit wenig Trainingsdaten und wenig Texten zur Bestimmung der Themenverläufe. Der Fokus der Arbeit liegt jedoch auf Chatdaten und insbesondere Daten mit SCY Hintergrund, so dass die weniger umfangreichen Daten dem angestrebten Einsatzziel näher liegen. In den nächsten Abschnitten werden die beiden Textkollektionen näher vorgestellt. 
+
+\subsection{Vorverarbeitung}
+Unabhängig davon, ob eine Kollektion zum Training des Themenmodells oder zur Analyse von zeitlichen Themenveränderungen benutzt wird, müssen die Daten vorverarbeitet werden. So werden standardmäßig die Texte der Dokumente in einzelne Wörter unterteilt. Nummern und Satzzeichen werden dabei nicht beachtet und aus den Texten entfernt. Abhängig von der Sprache der Dokumente werden anschließend die bekannten Stopwörter entfernt. Es wurde bei einigen Experimenten auf die Entfernung der Stopwörter verzichtet, um die Validation der Themenmodelle zu testen. Anschließend wurden die Wörter auf ihre Stammform reduziert. Dazu wurde der Snowball-Stemmer \citep{snowballWebsite} verwendet. Dieser benutzt für Englisch den Porter-Algorithmus und für Deutsch einen Lexikon basierten Ansatz. Dies wurde auch nur für einige Experimente durchgeführt, um die Validation zu testen und zu überprüfen, wie sich die Ergebnisse der Themenerkennung bei verschiedenen Varianten der Vorverarbeitung der Texte verhalten. 
+
+\subsection{dpa Nachrichtenmeldungen}
+Die dpa-Kollektion enthält Nachrichtenmeldungen der Deutschen Presse Agentur (dpa) der Jahre 2000 bis 2006. Sie wurde ausgewählt, weil die Nachrichtenmeldungen sich einfach zeitlich anordnen lassen. Die Meldungen erwähnen bekannte und zeitlich einzuordnende Ereignisse, die zur Überprüfung der entwickelten Methode geeignet sind.
+
+Für jedes in der Kollektion enthaltene Jahr sind die Meldungen pro Monat in einer XML-Datei hinterlegt, die alle Meldungen dieses Monats enthält. Eine einzelne Meldung weist die XML-Struktur in Abbildung \ref{fig:dpaXML} auf. Es sind nur die XML-Tags dargestellt, die zur Extraktion von Informationen genutzt werden. Der Nachrichtentext ist im Tag \texttt{<tx>} und \texttt{<ta>} zu finden. Der Zeitstempel kann entweder aus dem Tag \texttt{<da>} und \texttt{<uhr>} extrahiert werden oder aus dem Tag \texttt{<dzg>}. Jede Meldung kann somit zeitlich eingeordnet werden, wie es vorausgesetzt wird. Eine Meldung entspricht also einem Dokument $\doc_i$ und der Zeitstempel $\doctime(\doc_i)$ dieses Dokuments entspricht dem Zeitstempel der Meldung.
+
+Zusätzlich wird für jede Meldung festgehalten, in welche IPTC-Kategorie sie einsortiert wurde. Die IPTC-Kategorie ist ein Zahlencode, der die behandelten Themen einer Nachrichtenmeldung angibt. Diese Kategorien stehen im Tag \texttt{<iptc>} als durch Leerzeichen getrennte Liste. Die IPTC-Kategorien erlauben es bestimmte Nachrichtenmeldungen für das Training der Themenmodelle auszuwählen und somit die Anzahl der potentiellen Themen zu verringern. 
+
+Für das Training der Themenmodelle wurden die Meldungen aus den Monaten November und Dezember des Jahres 2004 ausgewählt. Von diesen wurden nur die Meldungen zum Training benutzt, die in die IPTC-Kategorie Kunst (Zahlencode beginnt mit 01), Unglücke (Zahlencode beginnt mit 03) und Politik (Zahlencode beginnt mit 11) fallen. Die so erstellte Kollektion enthält 13.949 Dokumente mit 114.261 verschiedenen Termen. Mit dieser Kollektion wurden die Themenmodelle trainiert.
+
+Die Textkollektion wurde auf die Monate November und Dezember begrenzt, um erstens die Anzahl der Dokumente zum Training des Themenmodells gering zu halten und zweitens aufgrund des Tsunamis um Weihnachten 2004. So wird das Themenmodell mit großer Wahrscheinlichkeit ein Thema enthalten, welches dieses Ereignis erfasst. Dieses soll dann wiederum in den Testdaten entdeckt werden. 
+
+Die drei IPTC-Kategorien wurden gewählt, um die Anzahl der potentiellen Themen indirekt zu begrenzen. Zusätzlich soll die Wahl der IPTC-Kategorien eine möglichst gute Trennung der Themenbereiche gewährleisten.
+
+\begin{figure}[ht]
+\rule{\textwidth}{1px} 
+\footnotesize
+\begin{verbatim}
+<meldung>
+<ob>BDT Basisdienst</ob>
+  <da>2004-12-26</da>
+  <uhr>13:02:00</uhr>
+  ...
+  <hl>Zwei starke Beben im Indischen Ozean gemessen</hl>
+  <tx>
+    Straßburg (dpa) - Zwei Beben der Stärke 5,7 auf der Richterskala
+    hat die französische Erdbebenwarte in Straßburg am Sonntag nach dem
+    Sumatra-Erdstoß im Indischen Ozean gemessen. Die Epizentren der
+    beiden Beben lagen nach den Angaben südlich sowie östlich der
+    indischen Andamanen-Inseln, teilte die Warte mit. Die Erdstöße
+    ereigneten sich um 5.21 und 10.19 MEZ. Straßburg hatte bei dem
+    folgenschweren Beben auf Sumatra eine Stärke von 8,1 registriert.
+  </tx>
+  <ta>
+  </ta>
+  <dzg>261302 Dez 04</dzg>
+  ...
+  <iptc>08000000</iptc>
+</meldung>
+\end{verbatim}
+\rule{\textwidth}{1px} 
+\caption{DPA-Meldung im XML-Format}
+\label{fig:dpaXML}
+\end{figure}
+
+Anhand dieser Kollektion wurden Themenmodelle trainiert, die jeweils 10, 20 bis 200 Themen enthalten. Es wurde mehrere Themenmodelle mit verschiedener Größe und verschiedenen Parametern gelernt, um die Validationsmethoden der Themenmodelle zu überprüfen und aus diesen ein passendes Themenmodell für die Bestimmung der Themenverläufe auszuwählen. Die Kriterien sind dabei eine möglichst gute Trennung der Themen anhand der Validationswerte bzw. die durch manuelle Inspektion festgestellte Adäquatheit der Themenmodelle in Bezug auf das Trainingskorpus. 
+
+Dieselben Texte, die zum Training des Themenmodells verwendet wurden, können als zeitliche Verlaufsdaten dienen. Tatsächlich wird jedoch nur eine Teilmenge der Trainingsdaten benutzt. Es wurden nur Meldungen vom 25.12.2004 bis 30.12.2004 benutzt, die auch in die drei oben genannten IPTC-Kategorien fallen. So kamen insgesamt 1.659 Dokumente zustande die einen Zeitraum von vier Tagen umfassen. Dieser spezielle Zeitraum wurde ausgewählt, da am 26.12.2004 ein Erdbeben in Südostasien einen Tsunami ausgelöst hat, der große Teile der Küste verwüstet hat. Es wird erwartet, dass dieses Ereignis als prominentes Thema in den Verläufen entdeckt wird. 
+
+Zusätzlich zu den realen Daten aus dem dpa-Korpus wurden synthetische Verläufe aus den Themenmodellen konstruiert. Das generative Modell der LDA wurde dazu benutzt, Dokumente zu generieren, die bestimmte Themen mit fester Wahrscheinlichkeit enthalten. Diese werden als Validationsverläufe benutzt. Näheres zur Konstruktion und Evaluation dieser Verläufe findet sich in Abschnitt \ref{sec:centralityEvaluation}.
+
+\subsection{SCY Chat-Daten}
+Im Gegensatz zu den dpa-Texten muss bei den SCY-Daten zwischen Trainings und Analysetexten unterschieden werden. Das Training der Themenmodelle wird mit denselben Texten durchgeführt, die den Schülern zur Verfügung gestellt werden, um sich über die \COTWO-Thematik zu informieren. Diese Hintergrundtexte sind Webseiten im Internet, deren Text zum Training der Modelle manuell extrahiert und als unstrukturierter Text gespeichert wurde. 
+
+Insgesamt wurden 56 Dokumente extrahiert und zum Training der Themenmodelle genutzt. Diese 56 Dokumente enthalten 5.605 unterschiedliche Terme. Im Gegensatz zu den dpa-Daten sind die Hintergrundtexte und die Chattexte Englisch. So kann zugleich die Eignung der hier entwickelten Methode für verschiedene Sprachen überprüft werden. 
+
+Aus den Hintergrundtexten wurden Themenmodelle mit jeweils 5, 10, 15 bis 100 Themen erzeugt. Diese Themenmodelle werden anhand der in Abschnitt \ref{sec:topicValidation} dargestellten Metrik überprüft, welches die vorkommenden Themen am besten wiedergibt. Aufgrund der wenigen verfügbaren Dokumente ist die Laufzeit des Trainingsalgorithmus kurz. Dies erlaubt es, mehr Themenmodelle zu trainieren, um mehr Daten zur Validation der Themenmodelle zur Verfügung zu haben.
+
+\begin{figure}[ht]
+\rule{\textwidth}{1px} 
+\footnotesize
+\begin{verbatim}
+...
+Hilde: Should we just write down the numbers, then we have them   What is 24 cm
+Per: Rise in sea level
+Hilde: It will be increase in both temperature, sea level, emisions   or  
+Per: All the three factors   curves   temperature increases by 3,44 degrees
+Hilde: ...and the sea level increases by 24 centimetre by the year 2100.
+Tom: I will say that this is a sustainable world  Maybe a little unstable in the economy, and the 
+death rate  
+Mette: Oh, look at this, how much it  increases
+Tom: Yes, it completely crazy. Uh   ohhh, how did we do that!!
+Mette: CO2 went alt the way down, that because we took these down
+Tom: OK
+Mette: But why, did it increase so much there? OK, we should take it more down, it looks better 
+Tom: A little maybe, Imagine how cheap it   will be. OK, now everything changed. Don't touch it, 
+more now, it became such a nice curve  Hey, come on, drag the last one down, a little bit down 
+...
+\end{verbatim}
+\rule{\textwidth}{1px} 
+\caption{SCY-Chatdaten}
+\label{fig:scyChat}
+\end{figure}
+
+Für die Analyse von Chattexten wurden reale Chattexte benutzt. Diese wurden von einem SCY-Projektpartner zur Verfügung gestellt. Es handelt sich dabei um Dialogprotokolle von Schülern, die eine Aufgabe zum Thema \COTWO und dem Bau eines \COTWO-neutralen Hauses bearbeiteten. Die Chats liegen in einer Textdatei vor, wobei jede Zeile dieser Datei einer Nachricht eines Schülers entspricht (siehe Abbildung \ref{fig:scyChat}). Jede Nachricht wird als Dokument aufgefasst und dem System zur Verfügung gestellt. Insgesamt wurden 72 Nachrichten mitprotokolliert, die dann dazu benutzt wurden die Themenverläufe zu ermitteln. Es sind leider nicht mehr Texte verfügbar, da das SCY-Projekt noch nicht so weit fortgeschritten ist, dass es produktiv eingesetzt werden kann. So sind leider nur die wenigen Dokumente aus der Konzeptionsphase der ersten SCY-Mission verfügbar. 
+
+Der Zeitstempel $\doctime(\doc_i)$ einer Nachricht $\doc_i$ entspricht der Position in der Datei. Die Zeitstempel sind hier nicht das Datum der Nachricht, sondern die Nachrichten werden fortlaufend durchnummeriert Die erste Nachricht, die ein Schüler schreibt erhält den Zeitstempel eins, die darauf folgende Antwort den Zeitstempel zwei bis alle Nachrichten nummeriert sind. Die Chatnachrichten werden somit nach dem Zeitpunkt des Auftretens sortiert. 
+
+Die Verwendung einer Nummerierung zur Ordnung der Chatnachrichten ist mit dem Fehlen einer Zeitinformation zu jeder Nachricht begründet. In der Chatsoftware die in der finalen SCY-Applikation verwendet wird, wird jedoch der Zeitpunk zu dem eine Nachricht geschrieben wurde, mitprotokolliert. So kann analog zur dpa-Kollektion das Datum der Nachricht als Zeitstempel benutzt werden. Des Weiteren werden neben den Chattexten, entsprechend der dpa-Kollektion, aus den gelernten Themenmodellen synthetische Themenverläufe erzeugt, die der Evaluation der Zentralitätsmaße dienen.

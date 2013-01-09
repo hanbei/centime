@@ -1,0 +1,60 @@
+\section{Dokumentation der Kommandozeilentools}
+	Im folgenden werden die erstellten Kommandozeilentools und ihre Benutzung vorgestellt. Die komplette Anwendung wurde in   
+	Java mit Hilfe des OBWIOUS Frameworks geschrieben. Die Anwendung liegt als Jar-Datei vor und kann mit verschiedenen 
+	Parametern gestartet werden. Generell wird das Tool mit dem Befehl \texttt{java -jar centime.jar} gestartet.
+	
+	\subsection*{Themenmodelle lernen}
+	Um die Themenmodelle zu lernen muss das Kommandozeilentool mit dem Parameter \texttt{--btm} gestartet werden. Die nötigen
+	Informationen werden auch als Parameter übergeben. Der komplette Aufruf ist folgender:
+
+	\begin{verbatim}
+	java -jar centime.jar --btm 
+	                      -n <Anzahl der Themen>
+	                      -i <Korpus> 
+	                      -o <Pfad an dem das Modell gespeichert werden soll>
+	                      -p <Konfigurationsdatei> (optional)
+	\end{verbatim}
+	In der Konfigurationsdatei können zusätzliche Parameter gesetzt werden. Die Konfiguration enthält Parameter wie $\alpha$ 		und $\beta$ und ob eine Stammformreduktion oder Stopweortentfernung durchgeführt werden soll. Die Parameter werden als 			Schlüssel/Wert Paare, die durch \texttt{=} getrennt sind notiert. Es gibt folgende Schlüssel:
+	\begin{labeling}[]{RemoveStopwords}
+		\item[\texttt{Language}] Gibt die Sprache des Korpus an. Erlaubte Werte sind \texttt{German} und \texttt{English}. Standard 							ist \texttt{German}.
+		
+		\item[\texttt{UseStemming}] Soll die Grundformreduktion für die Terme des Korpus durchgeführt werden. Die Stammformreduktion 								hängt dabei von der Wahl der Sprache ab. Erlaubte Werte: \texttt{True} und \texttt{False}. 										Standardwert: \texttt{False}. 
+		\item[\texttt{RemoveStopwords}] Sollen die Stopwörter entfernt werden. Welche Wörter Stopwörter sind hängt von der gewählten 									Sprache ab. Erlaubte Werte: \texttt{True} und \texttt{False}. Standardwert: \texttt{True}. 
+		\item[\texttt{IsCorpusDPA}] Gibt an ob der Korpus das dpa XML Format hat oder pro Dokument eine Datei vorhanden ist. Erlaubte 								Werte: \texttt{True} und \texttt{False}. Standardwert: \texttt{True}. 
+		\item[\texttt{AlphaSum}] Der Startwert $\alpha$ für den LDA-Algorithmus. Standardwert: 50
+		\item[\texttt{Beta}] Der Startwert $\beta$ für den LDA-Algorithmus. Standardwert: 0.01
+	\end{labeling}
+	
+	\subsection*{Verläufe erstellen}
+	Um die Themenverläufe einer Textsequenz zu erfassen muss das Kommandozeilentool mit dem Parameter \texttt{-rwf} gestartet 	werden. Auch hier werden wieder zusätzliche Parameter angegeben. 
+	
+	\begin{verbatim}
+	java -jar centime.jar --rwf
+	                      -t <Pfad zum Themenmodell>
+	                      -i <Textsequenz> 
+	                      -o <Pfad an dem die Verläufe gespeichert werden soll> 
+	                      	 (optional)
+	                      -p <Konfigurationsdatei> (optional)
+	\end{verbatim}
+	
+	Hier können bestimmte Parameter wieder über die Konfigurationsdatei eingestellt werden.	
+	\begin{labeling}[]{RemoveStopwords}
+		\item[\texttt{Language}] Gibt die Sprache des Korpus an. Erlaubte Werte sind \texttt{German} und \texttt{English}. 										Standard ist \texttt{German}.
+		\item[\texttt{UseStemming}] Soll die Grundformreduktion für die Terme des Korpus durchgeführt werden. Die 													Stammformreduktion hängt dabei von der Wahl der Sprache ab. Erlaubte Werte: \texttt{True} 									und \texttt{False}. Standardwert: \texttt{False}. 
+		\item[\texttt{RemoveStopwords}] Sollen die Stopwörter entfernt werden. Welche Wörter Stopwörter sind hängt von der 												gewählten Sprache ab. Erlaubte Werte: \texttt{True} und \texttt{False}. Standardwert: 										\texttt{True}. 
+		\item[\texttt{IsCorpusDPA}] Gibt an ob der Korpus das dpa XML Format hat oder pro Dokument eine Datei vorhanden ist. 										Erlaubte Werte: \texttt{True} und \texttt{False}. Standardwert: \texttt{True}. 
+		\item[\texttt{FrameSize}] Die Größe der Frames. Erlaubte Werte: \texttt{1-Anzahl Dokumente}. Standardwert: 10
+		\item[\texttt{Increment}] Die Größe der Überlappung der Frames. Erlaubte Werte: \texttt{1-Anzahl Dokumente}  											  Standardwert: 10
+		\item[\texttt{Threshold}] Der Schwellwert der Wahrscheinlichkeit für Themen ab dem sie in den Graphenaufbau 											miteinbezogen werden. Erlaubte Werte: $0 < t \leq 1$. Standardwert: 0.05
+	\end{labeling}	
+
+	\subsection*{Verläufe anzeigen}
+	Um die erstellten Verläufe anzuzeigen muss das Kommandozeilentool mit dem Parameter \texttt{--vis}  gestartet werden. Der 	komplette Befehl sieht wie folgt aus.
+	
+	$\ $
+	
+	\noindent\texttt{java -jar centime.jar --vis}
+	
+	$\ $
+	
+	Dies startet ein graphisches Benutzerinterface, in dem die Verläufe dann ausgewählt werden können und angezeigt werden.

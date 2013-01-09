@@ -1,0 +1,54 @@
+%Außenrand 3cm, Innenrand 1.5cm + 1.5cm Binderand
+\geometry{a4paper,twoside,includeheadfoot}%,showframe}
+\geometry{inner=20mm,outer=30mm}
+\geometry{top=25mm,bottom=25mm,footskip=10mm}
+\geometry{headheight=18pt}
+
+
+% Farben
+\definecolor{darkblue}{rgb}{0,0,1}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{grey}{rgb}{0.7,0.7,0.7}
+
+% erzeugt ein wenig mehr Platz hinter einem Punkt --------------------------
+\frenchspacing 
+
+%
+% Uppercase von Kapitelnamen in Kopfzeile abschalten. Es wird nur der Kapitelname dargestellt. 
+%
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+
+% ------------------- Kopfzeile ------------------
+\clearscrheadings
+
+% Kapitelüberschrift links auf der Seite
+\lehead{\rightmark}
+\rohead{\leftmark}
+
+% ---------- Fußzeile ----------------------------
+% Seitennummer auf der Außenseite
+\lefoot{\pagemark}
+\rofoot{\pagemark}
+
+
+% Kopf- und Fußzeile auch auf Kapitelanfangsseiten -------------------------
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\numberwithin{algorithm}{section}
+
+
+% Keine "Schusterjungen"
+\clubpenalty = 10000
+% Keine "Hurenkinder"
+\widowpenalty = 10000 \displaywidowpenalty = 10000
+
+%Lst escape character
+\lstset{escapechar={~}}
+
+% Zeilenabstand
+\onehalfspacing
+
+%\raggedbottom

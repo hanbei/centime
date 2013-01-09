@@ -1,0 +1,27 @@
+\section{Zentralitäten}
+
+Auf die so erstellten Graphen werden nun die in Kapitel \ref{chap:basics} vorgestellten Zentralitätsindizes angewendet. Für jeden Zeitabschnitt gibt es einen Graphen, dessen Knoten die vorkommenden Themen repräsentieren und der die Wahrscheinlichkeit der Themen in der Struktur des Graphen enthält. Im Falle der beiden Algorithmen \CST$\;$und \CDC$\;$ist die Wahrscheinlichkeit implizit enthalten, im Falle des Algorithmus \TPR$\;$explizit. Dennoch kann mit Hilfe der Zentralitätsindizes die Wichtigkeit der Themen bestimmt werden.
+
+\subsection{Normalisierung}
+Zur besseren Vergleichbarkeit der Ergebnisse der unterschiedlichen Zentralitäten werden die Verläufe normalisiert. Die Normalisierung der Zentralitätsindizes kann einerseits pro Graph vorgenommen werden oder über alle betrachteten Frames. 
+
+Bei der Normalisierung pro Graph werden die Zentralitätsindizes der Knoten auf den Wertebereich $[0,1]$ abgebildet. Für jeden Graphen werden die Zentralitätsindizes anhand der $L^\infty$-Norm normalisiert, indem die einzelnen Zentralitätswerte der Knoten durch den maximalen Zentralitätswert im Graphen geteilt werden. Die normalisierte Zentralität $\centrality{nX}$ für einen Knoten $v$ im Graphen $G=(V,E)$ mit Zentralität $\centrality{X}(v)$ ist
+\begin{equation*}
+\centrality{nX}(v) = \frac{\centrality{X}(v)}{\max_{u \in V}\left\lbrace\centrality{X}(u)\right\rbrace}\text{.}
+\end{equation*}
+So erhält man für jeden Graphen Zentralitätswerte zwischen Null und Eins. Leider lassen sich damit verschiedene Graphen nicht ohne weiteres vergleichen \citep{Brandes2005}, was direkte Auswirkungen auf die Vergleichbarkeit der prominenten Themen in den aufeinanderfolgenden Frames hat.
+
+Es wird deshalb eine Normalisierung vorgeschlagen, die nicht die einzelnen Graphen normalisiert, sondern über alle Frames normalisiert. Hierzu wird auch die $L^\infty$-Norm verwendet jedoch, wird nicht mehr der Maximalwert eines einzelnen Graphen benutzt, sondern der Maximalwert aller Graphen bzw. Frames. 
+
+Sei $G_{\frame_i}=(V_{\frame_i},E_{\frame_i})$ der korrespondierende Graph zu Frame $\frame_i$. Dann werden die Zentralitätswerte folgendermaßen normalisiert:
+\begin{equation*}
+\centrality{nX}(v) = \frac{\centrality{X}(v)}{\max_{u \in V_{\frame_i}\ \forall \frame_i \in \corpus }\left\lbrace\centrality{X}(u)\right\rbrace}\text{.}
+\end{equation*}
+So wird die Vergleichbarkeit der unterschiedlichen Graphen und der verschiedenen Zentralitätsindizes gewährleistet, da jeder Knoten relativ zu allen Graphen bewertet wurde. In der späteren Online-Applikation ist eine Normalisierung nicht mehr möglich, da man im Voraus das Maximum nicht bestimmen kann. Da die Normalisierung aber nur zur Vergleichbarkeit der Zentralitätsindizes benutzt wird, sollten die absoluten Werte ausreichend sein.
+
+\subsection{Nicht verbundene Graphen}
+Bei den letzten beiden, in Abschnitt \ref{sec:topic2graph} beschriebenen Algorithmen kann es vorkommen, dass diese einen Graph erzeugen, der nicht verbunden ist. Wie schon in den Grundlagen dargelegt wurde, sind einige Zentralitätsindizes nicht auf unzusammenhängenden Graphen definiert. 
+
+Ein Ansatz dieses Problem zu handhaben, besteht darin die Zentralitätsindizes für jede Zusammenhangskomponente einzeln zu berechnen und die Werte dann mit der Größe der Komponente zu gewichten. Dies funktioniert, solange der Zentralitätsindex sich proportional zur Größe des Graphen verhält \citep{Brandes2005}. Die Closeness- und Eccentricity-Zentralität verhalten sich jedoch nicht proportional zur Größe des Graphen \citep{Poulin2000}. Somit werden die Ergebnisse dieser Zentralitäten für unzusammenhängende Graphen unbrauchbar. Gleichzeitig haben Poulin, Boily und Mâsse \citep{Poulin2000} einen neuen Zentralitätsindex entwickelt, der auch für unzusammenhängende Graphen funktioniert. Da der Fall, dass ein nicht zusammenhängender Graph erzeugt wird, jedoch selten auftritt und durch geeignete Wahl der Framegröße und der Frameüberlappung umgangen werden kann, wurde dieser Zentralitätsindex hier nicht implementiert. 
+
+Es wird jedoch folgende Heuristik verwendet, um unzusammenhängende Graphen bewerten zu können. Es wird generell die Zusammenhangskomponente mit der größten Anzahl an Knoten bewertet. Zusammenhangskomponenten, die um bis zu 20\% von der Maximalgröße abweichen, werden ebenfalls bewertet. In allen anderen Zusammenhangskomponenten werden die Zentralitätswerte der Knoten auf Null gesetzt. So entdeckt man einen Themenbruch innerhalb eines Frames, wenn die Themen in ungefähr gleich vielen Dokumenten erwähnt sind. 

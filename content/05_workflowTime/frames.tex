@@ -1,0 +1,25 @@
+\section{Frames}
+
+Zuerst wird die Textsequenz in gleich große diskrete Zeitabschnitte unterteilt, Frames genannt. Es ist dabei nicht nötig, dass die Frames disjunkt sind. Es muss jedoch gelten, dass sie eine Sequenz bilden bzw. eindeutig anzuordnen sind. Für ein Korpus $\corpus=(\frame_1,\frame_2,\ldots,\frame_F)$ gilt:
+\begin{enumerate}
+\item die einzelnen Frames weisen eine Reihenfolge auf. D.h $\frame_1 <_\frame \frame_2 <_\frame \cdots <_\frame \frame_F$ wobei $<_\frame$ die Ordnung auf den Frames darstellt. 
+\item die Frames stellen eine komplette Zerlegung des Korpus dar. D.h. $\corpus=\bigcup^F_{i=0}\frame_i$.
+\item die Dokumente innerhalb eines Frames müssen wiederum, wie in der Gesamtsequenz, sortiert sein. Für einen Frame $\frame=(\doc_1,\doc_2,\ldots,\doc_f)$ gilt auch, dass $\doctime(\doc_1) \leq \doctime(\doc_2) \leq \cdots \leq \doctime(\doc_f)$. 
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\input{images/content/05_workflowTime/frames_pic}
+\caption{Zerlegung eines Korpus in Frames.}
+\label{fig:framePic}
+\end{figure}
+
+In Abbildung \ref{fig:framePic} ist eine Zerlegung von sechs Dokumenten in Frames der Größe drei dargestellt. Die Frames werden jeweils um zwei Dokumente versetzt erzeugt. Frame $\frame_1$ und Frame $\frame_2$ enthalten somit beide Dokument $\doc_3$. Der letzte Frame $\frame_3$ enthält nur zwei Dokumente, da durch die Unterteilung für den letzten Frame nicht genug Dokumente vorhanden sind, um ihn komplett aufzufüllen. Die Sortierung der Dokumente bleibt innerhalb der Frames erhalten, somit gilt Bedingung drei. Bedingung eins und zwei werden durch die Konstruktion der Frames erfüllt. Die Frames enthalten nicht weniger als alle Dokumente der Textsequenz und die Reihenfolge ist durch die Position der Frames gegeben. 
+
+Hier könnte die Ordnung $<_{\frame}$ folgendermaßen definiert sein. Sei $\doc_{\frame_i,j}$ das $j$-te Dokument in Frame $\frame_i=(\doc_1,\ldots,\doc_j,\ldots,\doc_f)$ dann ist  
+\[
+\frame_i <_\frame \frame_j \Leftrightarrow \doctime(\doc_{\frame_i,1}) \leq \doctime(\doc_{\frame_j,1})\text{.}
+\]
+
+
+Abhängig von der Textsequenz steuert die Wahl der Framegröße den betrachteten Zeitraum. So ist es denkbar, dass für das dpa-Korpus die Framegröße so gewählt wird, das eine Woche oder ein Tag in einem Frame zusammengefasst wird. Bei Chattexten ist es besser, die letzten Minuten zu betrachten, da die Konversation schneller ist und sich die Themen dementsprechend schnell ändern können. Dementsprechend wählt man die Framegröße.

@@ -1,0 +1,21 @@
+\chapter{Einleitung}
+
+Zeitliche Veränderung in der Thematik von Texten zu erfassen ist eine wesentliche Aufgabe in der modernen, durch eine Flut von Informationen charakterisierten Gesellschaft. Dies kann von der Überwachung von Nachrichtentexten \citep{newsTopic} über Trenderkennung in Blogs \citep{blogpulse} bis zur Identifikation von Themen in Chats reichen. Die Anwendungen sind vielfältig. Im Kontext einer Lernplattform kann man sich einen Chat vorstellen, in dem Schüler sich über verschiedene zu bearbeitende Themen unterhalten. Ein Lehrer, der beobachtet über welche Themen gesprochen wird, könnte erkennen, ob erstens überhaupt etwas getan wird und zweitens, ob noch Lernbedarf besteht.
+
+Die bisherigen Verfahren weisen oft Einschränkungen bei der Erkennung der Themen bzw. der Verifizierbarkeit der Themen auf. Oftmals müssen die Texte manuell annotiert werden, um die Themen erkennen zu können, oder die Themen sind nur aufwändig zu ermitteln \citep{ldaSourceCode}. Ferner ist die betrachtete Zeitspanne häufig nicht variabel genug bzw. wird bei der Erstellung des Modells zum Erkennen der Themen festgelegt und kann somit nicht unabhängig von den Themen betrachtet werden \citep{topicsOverTime}.
+
+In dieser Diplomarbeit soll eine Methode entwickelt werden, um die zeitliche Änderung der Themen in Texten zu erfassen. Die einzelnen Textfragmente dieser sequentiellen Texte müssen eine zeitliche Ordnung aufweisen und somit sequentiell angeordnet werden können. Diese zu entwickelnde Methode soll eine möglichst große Variabilität bzgl. der betrachteten Zeitspanne bieten. Ergänzend soll der Aufwand in der Erkennung der thematischen Verläufe gering gehalten werden, so dass eine Online-Anwendung möglich ist. Um dies zu erreichen, wird folgende Methode vorgeschlagen.
+
+Ausgehend von der Annahme, dass sequentielle Texte vorliegen, werden zuerst die Themen anhand Hintergrundwissen oder der vorliegenden Textkollektion gelernt. Anhand dieses Modells werden für die sequentiellen Texte die Themen bestimmt und eine relationale Struktur in Form eines Graphen aufgebaut. Auf diesen Graphen werden Zentralitätsmaße angewandt, um die Wichtigkeit der Themen numerisch zu erfassen. Die zeitlichen Verläufe der Zentralitätsmaße werden dann geeignet visualisiert. Da die Ergebnisse und die entwickelte Methode im EU-Projekt \textit{Science Created by You} (SCY) genutzt werden sollen, ergeben sich spezielle Anforderungen, die in Abschnitt \ref{chap:goals} noch genauer erläutert werden. 
+
+Das SCY-Projekt\footnote{\href{http://www.scy-net.eu}{http://www.scy-net.eu}} ist ein EU-Projekt mit dem Ziel eine Plattform zu entwickeln, die es Schülern ermöglicht, selbstständig zu lernen. Im Gegensatz zu vielen anderen E-Learning Systemen bietet das SCY-Projekt eine Plattform, die kollaboratives Lernen verschiedener Inhalte unterstützt. Die Lerninhalte werden als Missionen modelliert, in denen den Schülern unterschiedliche Werkzeuge zur Verfügung stehen, um die gestellte Aufgabe zu lösen. 
+
+Eine der ersten Missionen beschreibt die Aufgabe, ein \COTWO-neutrales Haus zu entwickeln. Dazu müssen die Schüler sich zuerst generell über \COTWO\  und dessen Auswirkung auf den Treibhauseffekt informieren. Anschließend informieren sie sich über Maßnahmen, die den \COTWO-Ausstoß eines Hauses senken können. Dies können verschiedene Baustoffe, Dämmmaterialien oder andere Techniken sein. Hierzu werden Hintergrundtexte gelesen und Simulationen  durchgeführt, die den Zusammenhang zwischen den verschiedenen \COTWO-Quellen und den Gegenmaßnahmen darstellen. Ausgehend von diesem Hintergrundwissen werden dann die Häuser entworfen. 
+
+SCY unterstützt den Schüler dabei durch verschiedene Werkzeuge, die kollaborativ genutzt werden können. Insbesondere können sich die Schüler per Chat über etwaige Unklarheiten oder den Entwurf des Hauses austauschen. Die Chats werden aufgezeichnet und sollen als Quelle für die zu untersuchenden Textsequenzen dienen. Wie genau die Themenveränderungen in den Chat- und sonstigen Texten erfasst werden sollen, welche Schwierigkeiten dabei auftreten können und wie diese gelöst werden, wird in dieser Arbeit erläutert. 
+
+\input{content/01_introduction/goals}
+\input{content/01_introduction/summary}
+
+
+

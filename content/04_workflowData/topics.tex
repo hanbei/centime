@@ -1,0 +1,27 @@
+\section{Validierung der Modelle}
+\label{sec:topicValidation}
+Um die Themenmodelle bewerte zu können, muss man den Aufbau der Themen examinieren. Ein Thema ist durch die Verteilung der Terme charakterisiert. Die Termverteilung zu einem Thema gibt an, welche Terme mit welcher Wahrscheinlichkeit diesem zugeordnet werden. Die Eignung der Themenmodelle wird direkt anhand der Termverteilung eines Themas bestimmt. Da die Themen möglichst gut separieren sollen ist es naheliegend, die Eignung der Themenmodelle anhand dieser Werte zu bestimmen. Betrachtet man die Termverteilung zweier Themen, so sind die Themen dann möglichst unterschiedlich, wenn die Termverteilungen sich unterscheiden. Termverteilungen, die dieselben Terme mit ähnlicher Wahrscheinlichkeit enthalten, werden als ähnlich betrachtet. Themen deren Form der Termverteilung unterschiedlich aussieht, sind auch unterschiedlich. 
+
+Um zu berechnen, wie gut sich die Themen unterscheiden, wird für jedes Thema $\docTopic_i$ die Kullback-Leibler-Divergenz anhand der Termverteilung $\topicTermDist{i}$ zu allen anderen Themen $\docTopic_j$ bestimmt. Daraus entsteht eine Matrix $A$, die die Kullback-Leibler-Divergenz jedes Themas zu allen anderen enthält. Die Abstandsmatrix ist definiert als 
+\[
+	A_{ij} = D_{KL}(\topicTermDist{i}\Vert\topicTermDist{j}) := \sum^V_{k=0}\topicTermProb{i}{k} \log{ \frac{\topicTermProb{i}{k}}{\topicTermProb{j}{k}}}\text{.}
+\]
+Anhand der wechselseitigen Divergenzwerte wird der mittlere Divergenzwert $d_m$ aller Themen eines Modells bestimmt. Es wird 
+\[
+d_m = \frac{\sum^{K}_{i=0}\sum^{K}_{j=0}{A_{ij}}}{K^2}
+\]
+berechnet. %Zusätzlich zum mittleren Divergenzwert wird die Varianz der Divergenzwerte berechnet. Die Varianz wird anhand folgender Formel berechnet. 
+%\[
+%\sigma = \sum^{K}_{i=0}\sum^{K}_{j=0}{(A_{ij}-d_m)^2}
+%\]
+
+Der Divergenzwert alleine ist nicht aussagekräftig. Er muss in Beziehung zu den Divergenzwerten anderer Themenmodelle gesetzt werden. Vergleicht man die mittleren Divergenzwerte von Themenmodellen, die mit verschiedener Anzahl von Themen trainiert wurden, kann man anhand der Divergenzwerte feststellen mit welcher Anzahl von Themen die Modelle am besten separieren. Trägt man die Divergenzwerte gegen die Anzahl der Themen auf, kann man einen Bereich ablesen für den die Themen gut separiert sind. Aus diesem Bereich soll dann ein Themenmodell zur Bestimmung der Themenverläufe ausgesucht werden. 
+
+Zur Validation von Themenmodellen werden normalerweise Testdokumente zurück"-gehalten, für die dann bestimmt wird wie gut das Modell die Themen in diesem Dokument ermittelt. Dies ist jedoch für die Anwendung in der Diplomarbeit nicht ausreichend, da wenig Dokumente zum Training zur Verfügung stehen, so dass alle zur Verfügung stehenden Dokumente zum Training der Modelle genutzt werden. Deshalb wurde eine eigene Methode zur Validierung der Themenmodelle entwickelt, die ohne Zurückhaltung von Dokumenten auskommt. 
+
+
+
+
+
+
+

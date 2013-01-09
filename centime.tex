@@ -1,0 +1,61 @@
+\documentclass[
+	a4paper,
+	titlepage,
+	bibliography=totoc,
+	headsepline,
+    twoside,
+    openright
+	]{scrreprt}
+
+% benötigte packages
+\include{format/packages}
+
+% Definition des Aussehens
+\include{format/style}
+
+% Neue Kommandos
+\include{format/meta}
+
+\begin{document}
+	\pagenumbering{Roman}
+	
+	% Titelseite + Declaration of Independence
+	\include{content/00_title/titlepage}
+	\include{content/00_title/declarationOfIndependence}
+%	\includegraphics[]{content/00_title/declarationOfIndependence.ps}
+	
+	% Verzeichnisse 
+	\setcounter{page}{1}
+	\pagestyle{scrheadings}
+	\tableofcontents
+	\clearpage
+	
+	\pagenumbering{arabic}
+	
+	% for correctional purpose
+	%	\setpagewiselinenumbers
+	%\linenumbers
+	
+	\include{content/01_introduction/introduction}
+			
+	\include{content/02_fundamentals/fundamentals}	
+	
+	\include{content/03_relatedwork/relatedwork}
+
+    \include{content/04_workflowData/workflowData}
+	\include{content/05_workflowTime/workflowTime}
+	
+	\include{content/06_results/results}
+	\include{content/07_conclusion/conclusion}
+
+	\bibliographystyle{dinat}
+	\bibliography{references/bibtex}
+
+	\clearpage
+	\pagenumbering{Roman}
+	%\appendix
+	%\chapter{Anhang}
+	%\input{content/cmdLineTool}
+	
+	
+\end{document}

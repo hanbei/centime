@@ -1,0 +1,19 @@
+\chapter{Grundlagen}
+\label{chap:basics}
+
+Im folgenden Kapitel werden die Techniken erläutert, die als Grundlage für diese Diplomarbeit dienen. Im Abschnitt über Themenmodelle wird hergeleitet, wie aus einem Korpus von Dokumenten ein Themenmodell erzeugt. Dabei wird insbesondere auf die statistische Inferenz eingegangen. Im Abschnitt über Zentralitäten werden die benutzten Zentralitätsindizes erläutert.
+
+Es wird folgende Notation durchgängig zur Bezeichnung von Wörtern, Dokumenten und Korpora benutzt\footnote{Die Notation und die folgende Herleitung wurde zu Teilen aus \citep{parameterEstimation} übernommen}.
+\begin{itemize}
+  \item Ein Korpus $\mathcal{W}=(\doc_1,\ldots,\doc_M)$ besteht aus $M$ Dokumenten. 
+  \item Jedes Dokument $\doc_m=(\word_{m,1},\ldots,\word_{m,N})$ besteht aus einer Sequenz von $N$ Wörtern $\word_{m,n}$. Mit $n = \left\lbrace 1,\ldots,N\right\rbrace$ und $m = \left\lbrace 1,\ldots,M\right\rbrace$. 
+  \item Ein Wort $\word_{m,n}$ bezeichnet das $n$-te Wort in Dokument $\doc_m$. Ein Wort ist ein Vorkommen eines Terms $t$ aus dem Vokabular $V$. Mehrere Wörter können den gleichen Term instantiieren. So enthält der Satz \textit{Ein Affe bleibt ein Affe, auch in Seide gekleidet} zweimal das Wort \textit{Affe}, dieses instantiiert aber denselben Term \textit{Affe}. 
+  \item Ein Term $t$ ist ein eindeutiges Merkmal im zugrundeliegenden Korpus. Im vorliegenden Fall sind dies Wörter im herkömmlichen Sinne. So ist z. B. \textit{Affe} ein Term während \textit{Affen} ein anderer Term ist. 
+  \item Mit $\wordTopic_{m,n}$ wird das zugehörige Thema des Wortes $\word_{m,n}$ in Dokument $\doc_m$ bezeichnet. Ein Thema ist hier keine semantische Einheit im klassischen Sinne. Wie ein Thema definiert ist wird im folgenden Abschnitt \ref{sec:topicModels} erklärt.
+  \item $\docTopic_m$ bezeichnet die Themen des Dokumentes $\doc_m$. Es ist $\docTopic_m =$\\ $\left(\wordTopic_{m,1},\ldots,\wordTopic_{m,N}\right)$
+\end{itemize}
+
+\input{content/02_fundamentals/topicmodels}
+\input{content/02_fundamentals/centrality}
+\input{content/02_fundamentals/summary}
+

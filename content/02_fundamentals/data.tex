@@ -1,0 +1,27 @@
+\subsection{Daten}
+
+Die Aufgabenstellung stellt eine besondere Anforderung an den zugrunde liegenden Textkorpus. Die einzelnen Dokumente müssen in einer eindeutigen zeitlichen Reihenfolge angeordnet werden können. Dazu erhält jedes Dokument einen Zeitstempel, der den Punkt in der Zeit definiert, an dem das Dokument eingeordnet wird. Korpora werden hier nicht mehr als ungeordnete Sammlung von Dokumenten aufgefasst, sondern als geordnete Liste von Dokumenten.  Im Folgenden wird die Notation beschrieben um Korpora, Frames, Dokumente und Wörter zu bezeichnen. Ein Korpus $\corpus$ besteht aus $M$ Dokumenten $\doc_m$. Diese Dokumente $\doc_m$ bestehen wiederum aus $N_m$ Wörtern $\word_{m,n}$. Für ein Dokument $\doc_m$ erhält man den Zeitstempel durch die Funktion $\doctime(\doc_m)$. Es gilt somit für alle Dokumente $\doc_m$ eines Korpus $\corpus$, dass sie zeitlich angeordnet sind, wenn $\doctime(\doc_1) \leq \doctime(\doc_2) \leq \cdots \leq \doctime(\doc_m)$ gilt. 
+
+Zusätzlich wird der Korpus in diskrete Zeitabschnitte aufgeteilt, die Frames genannt werden. Die Größe der Frames stellt die gewünschte zeitliche Auflösung dar und ist für alle Frames gleich. Frames müssen nicht notwendigerweise disjunkt sein und können sich überlappen.  
+
+Die Frames sind eine Zerlegung des Korpus, so dass $\corpus = \bigcup^F_{i=1} \frame_i$ gilt. Ein Frame $\frame$ besteht aus Dokumenten $(\doc_{1},\ldots,\doc_{f})$, die wiederum zeitlich angeordnet sind. Es gilt: $\doctime(\doc_1) \leq \doctime(\doc_2) \leq \cdots \leq \doctime(\doc_f), \forall \doc_i \in \frame$.
+
+
+
+\TODO{Benutzte Daten}
+\subsubsection{DPA}
+
+\subsubsection{Chat-Daten}
+
+\subsubsection{SCY-Data}
+
+\subsubsection{ShafferData}
+
+%\TODO{TestData}
+%\begin{itemize}
+%  \item DPA-Daten 2004
+%  \item vorgefertigte Verläufe aus IPTC Kategorien
+%  \item 30 Kunst 30 Unglücke 30 Politik
+%  \item Topicauftreten vorher bestimmt. 
+%  \item Abgleich mit Centrality-Methode ob das richtig ermittelt wird.
+%\end{itemize}

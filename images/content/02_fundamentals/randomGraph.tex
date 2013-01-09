@@ -1,0 +1,39 @@
+\begin{pspicture}(0,0)(5,4)
+
+\cnode[fillstyle=solid, fillcolor=white](0,1){0.3}{B}
+\cnode[fillstyle=solid, fillcolor=white](0,2.5){0.3}{A}
+
+\cnode[fillstyle=solid, fillcolor=white](1,1){0.3}{E}
+\cnode[fillstyle=solid, fillcolor=white](1,2){0.3}{D}
+\cnode[fillstyle=solid, fillcolor=white](1,3){0.3}{C}
+
+\cnode[fillstyle=solid, fillcolor=grey](2.5,2){0.3}{F}
+
+\cnode[fillstyle=solid, fillcolor=white](4,1){0.3}{H}
+\cnode[fillstyle=solid, fillcolor=white](4,3){0.3}{G}
+
+\ncline{A}{C}
+\ncline{A}{D}
+\ncline{B}{E}
+
+\ncline{C}{F}
+\ncarc{C}{G}
+\ncline{D}{F}
+\ncline{E}{F}
+
+\ncline{F}{H}
+\ncline{F}{G}
+
+\rput(0,1){$B$}
+\rput(0,2.5){$A$}
+
+\rput(1,1){$E$}
+\rput(1,2){$D$}
+\rput(1,3){$C$}
+
+\rput(2.5,2){$F$}
+
+\rput(4,1){$H$}
+\rput(4,3){$G$}
+
+\end{pspicture}
